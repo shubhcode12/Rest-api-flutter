@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsonparseflutter/User.dart';
@@ -46,25 +48,24 @@ class _LoginState extends State<Login> {
 
   signIn(String phone, pass) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map data = {'phoneNumber': phone, 'password': pass};
 
+    Map data = {'phoneNumber': phone, 'password': pass};
+   
     var jsonResponse = null;
-    
+
     var response = await http.post(
         Uri.parse('https://zippy-server-1.herokuapp.com/auth/login'),
         body: data);
-   
+
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      
-      // List<User> users = (json.decode(response.body) as List)
-      // .map((data) => User.fromJson(data))
-      // .toList();
+      // print(jsonResponse);
 
-      // List<dynamic> list = json.decode(response.body);
-      // User user = User.fromJson(list[0]);
-      // print(user.authToken);
+      Map<String, dynamic> map = json.decode(response.body);
+      final list = map.values.toList();
+      print(list[2]);
+
+     
 
       if (jsonResponse != null) {
         setState(() {
