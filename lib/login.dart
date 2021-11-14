@@ -49,6 +49,7 @@ class _LoginState extends State<Login> {
     Map data = {'phoneNumber': phone, 'password': pass};
 
     var jsonResponse = null;
+    
     var response = await http.post(
         Uri.parse('https://zippy-server-1.herokuapp.com/auth/login'),
         body: data);
@@ -57,9 +58,13 @@ class _LoginState extends State<Login> {
       jsonResponse = json.decode(response.body);
       print(jsonResponse);
       
-      List<User> users = (json.decode(response.body) as List)
-      .map((data) => User.fromJson(data))
-      .toList();
+      // List<User> users = (json.decode(response.body) as List)
+      // .map((data) => User.fromJson(data))
+      // .toList();
+
+      // List<dynamic> list = json.decode(response.body);
+      // User user = User.fromJson(list[0]);
+      // print(user.authToken);
 
       if (jsonResponse != null) {
         setState(() {
